@@ -9,10 +9,22 @@ export let movies = [
     rating: 7.7,
     language: "Español",
     country: "México"
+  },
+  {
+    id: "mx_002",
+    title: "Segunda Pelicula",
+    releaseYear: 2003,
+    genre: ["Adventure", "Action"],
+    duration: 120,
+    directorId: "dir_mx_001",
+    rating: 7.7,
+    language: "Español",
+    country: "México"
   }
 ];
 
 export let movieActors = [
   { movieId: "mx_001", actorId: "act_mx_001", characterName: "Julio Zapata" },
-  { movieId: "mx_001", actorId: "act_mx_002", characterName: "Tenoch Iturbide" }
+  { movieId: "mx_001", actorId: "act_mx_002", characterName: "Tenoch Iturbide" },
+  { movieId: "mx_001", actorId: "act_mx_001", characterName: "Colonel Grande"}
 ];

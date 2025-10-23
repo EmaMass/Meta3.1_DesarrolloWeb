@@ -96,7 +96,7 @@ export const addActorToMovie = (req, res) => {
         return res.status(422).json({ error: "actorId no existe" });
 
     const checkVinculado = movieActors.find(ma => ma.movieId === movieId && ma.actorId === actorId);
-    if(!checkVinculado)
+    if(checkVinculado)
         return res.status(409).json({ error: "Actor ya vinculado a esta pelicula" });
 
     movieActors.push({ movieId, actorId, characterName });
