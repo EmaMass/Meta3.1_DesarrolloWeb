@@ -1,42 +1,60 @@
-import { actors } from "../modules/actors.js";
-import { movies, movieActors } from "../modules/movies.js";
+import { Op } from "sequelize";
+import { Actor, Movie } from "../models/index.js";
 
 //Conseguir todos los actores
-export const getAllActors = (req, res) => {
+export const getAllActors = async (req, res) => {
+  try {
     const { nationality, minBirthYear } = req.query;
-    let filtro = actors;
+    const where = {};
 
-    if(nationality)
-        filtro = filtro.filter(a => a.nationality === nationality);
-    if(minBirthYear)
-        filtro = filtro.filter(a => a.birthYear >= parseInt(minBirthYear));
+    if (nationality) 
+        where.nationality = nationality;
+    if (minBirthYear) 
+        where.birthYear = { [Op.gte]: parseInt(minBirthYear) };
 
-    res.json(filtro);
+    const actors = await Actor.findAll({ where });
+    res.json(actors);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener actores", details: error.message });
+  }
 };
 
 //Conseguir pelicula(s) con x actor
-export const getMoviesByActor = (req, res) => {
-    const { id } = req.params;
-    const actor = actors.find(a => a.id === id);
-    if(!actor)
+export const getMoviesByActor = async (req, res) => {
+  try {
+    const actor = await Actor.findByPk(req.params.id, {
+      include: { model: Movie, through: { attributes: ["characterName"] } },
+    });
+    if (!actor) 
         return res.status(404).json({ error: "Actor no encontrado" });
 
-    const relaciones = movieActors.filter(ma => ma.actorId === id);
-    const resultado = relaciones.map(r => movies.find(m => m.id === r.movieId));
-
-    res.json(resultado);
+    res.json(actor.Movies);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener películas", details: error.message });
+  }
 };
 
 //Insertar nuevo actor
-export const insertActor = (req, res) => {
-    const { id, name, nationality, birthYear } = req.body;
+export const insertActor = async (req, res) => {
+  try {
+    const { id, name, nationality, birthYear, birthPlace, notableAwards } = req.body;
+    if (!id || !name)
+      return res.status(400).json({ error: "Campos obligatorios faltantes" });
 
-    if(!id || !name)
-        return res.status(400).json({ error: "Campos obligatorios faltantes" });
-    if(actors.find(a => a.id === id))
+    const exists = await Actor.findByPk(id);
+    if (exists) 
         return res.status(409).json({ error: "El actor ya existe" });
 
-    const nuevoActor = { ...req.body };
-    actors.push(nuevoActor);
-    res.status(201).json(nuevoActor);
+    const newActor = await Actor.create({
+      id,
+      name,
+      nationality,
+      birthYear,
+      birthPlace,
+      notableAwards,
+    });
+    res.status(201).json(newActor);
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear actor", details: error.message });
+  }
 };
