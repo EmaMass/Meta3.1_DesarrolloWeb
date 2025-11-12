@@ -3,7 +3,7 @@ module.exports = {
     username: "backenduser",
     password: "superpassword",
     database: "cineBase",
-    host: "127.0.0.1",
+    host: "localhost",
     dialect: "mysql",
     logging: false
   },
@@ -11,14 +11,14 @@ module.exports = {
     username: "backenduser",
     password: "superpassword",
     database: "cineBase_test",
-    host: "127.0.0.1",
+    host: "localhost",
     dialect: "mysql"
   },
   production: {
     username: "backenduser",
     password: "superpassword",
     database: "cineBase_prod",
-    host: "127.0.0.1",
+    host: "localhost",
     dialect: "mysql"
   }
 };
