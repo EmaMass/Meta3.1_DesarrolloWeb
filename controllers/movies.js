@@ -29,7 +29,8 @@ export const getAllMovies = async (req, res) => {
     if (!genre) 
         return res.json(movies);
 
-    //Filtrar en JS: parsear genre (string JSON) y comprobar inclusión
+    //Filtrar en JS: parsear genre (string JSON) y comprobar inclusión (En caso de MariaDB, parece que MySQL funciona bien)
+    //(Y MariaDB maneja JSON de una manera muy diferente que se necesita realizar este filtro mas "extensivo")
     const genreLower = genre.toLowerCase();
     const filtered = movies.filter(m => {
       try {
