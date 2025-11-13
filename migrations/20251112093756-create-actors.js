@@ -1,42 +1,42 @@
 'use strict';
 
-export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable('Actors', {
+export async function up(Sequelize, DataTypes) {
+  await Sequelize.createTable('Actors', {
     id: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
     },
     name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     nationality: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     birthYear: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     birthPlace: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     notableAwards: {
-      type: Sequelize.JSON,
+      type: DataTypes.JSON,
       allowNull:true,
     },
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
   });
 }
 
-export async function down(queryInterface) {
-  await queryInterface.dropTable('Actors');
+export async function down(Sequelize) {
+  await Sequelize.dropTable('Actors');
 }

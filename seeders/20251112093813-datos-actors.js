@@ -1,7 +1,7 @@
 'use strict';
 
-export async function up(queryInterface) {
-  await queryInterface.bulkInsert('Actors', [
+export async function up(Sequelize) {
+  await Sequelize.bulkInsert('Actors', [
     {
       id: 'act_mx_001',
       name: 'Gael García Bernal',
@@ -25,6 +25,6 @@ export async function up(queryInterface) {
   ]);
 }
 
-export async function down(queryInterface) {
-  await queryInterface.bulkDelete('Actors', null, {});
+export async function down(Sequelize) {
+  await Sequelize.bulkDelete('Actors', null, {});
 }

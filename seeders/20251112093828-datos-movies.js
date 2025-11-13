@@ -1,7 +1,7 @@
 'use strict';
 
-export async function up(queryInterface) {
-  await queryInterface.bulkInsert('Movies', [
+export async function up(Sequelize) {
+  await Sequelize.bulkInsert('Movies', [
     {
       id: 'mx_001',
       title: 'Y tu mamá también',
@@ -31,6 +31,6 @@ export async function up(queryInterface) {
   ]);
 }
 
-export async function down(queryInterface) {
-  await queryInterface.bulkDelete('Movies', null, {});
+export async function down(Sequelize) {
+  await Sequelize.bulkDelete('Movies', null, {});
 }

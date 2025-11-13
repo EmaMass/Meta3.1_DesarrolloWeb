@@ -1,36 +1,36 @@
 'use strict';
 
-export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable('Movies', {
+export async function up(Sequelize, DataTypes) {
+  await Sequelize.createTable('Movies', {
     id: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
     },
     title: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     releaseYear: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     genre: {
-      type: Sequelize.JSON,
+      type: DataTypes.JSON,
     },
     duration: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     rating: {
-      type: Sequelize.FLOAT,
+      type: DataTypes.FLOAT,
     },
     language: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     country: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     directorId: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: true,
       references: {
         model: 'Directors',
@@ -40,18 +40,18 @@ export async function up(queryInterface, Sequelize) {
       onDelete: 'SET NULL',
     },
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
   });
 }
 
-export async function down(queryInterface) {
-  await queryInterface.dropTable('Movies');
+export async function down(Sequelize) {
+  await Sequelize.dropTable('Movies');
 }

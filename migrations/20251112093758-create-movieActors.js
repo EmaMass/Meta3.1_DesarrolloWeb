@@ -1,9 +1,9 @@
 'use strict';
 
-export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable('MovieActors', {
+export async function up(Sequelize, DataTypes) {
+  await Sequelize.createTable('MovieActors', {
     movieId: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'Movies',
@@ -13,7 +13,7 @@ export async function up(queryInterface, Sequelize) {
       onDelete: 'CASCADE',
     },
     actorId: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'Actors',
@@ -23,22 +23,22 @@ export async function up(queryInterface, Sequelize) {
       onDelete: 'CASCADE',
     },
     characterName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
     },
   });
 }
 
-export async function down(queryInterface) {
-  await queryInterface.dropTable('MovieActors');
+export async function down(Sequelize) {
+  await Sequelize.dropTable('MovieActors');
 }
